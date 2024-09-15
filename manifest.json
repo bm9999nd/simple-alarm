@@ -1,0 +1,20 @@
+{
+  "name": "Timer PWA",
+  "short_name": "Frameless Timer PWA",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/images/alarm-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/alarm-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer</title>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+      .then(() => {
+        console.log('Service Worker Registered');
+      });
+    }
+  </script>
+  <link rel="icon" type="image/x-icon" href="images/alarm-128.png">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/jquery-3.7.1.min.js"></script>
+</head>
+
+<body data-bs-theme="dark">
+  <!-- window -->
+  <section id="window-bar" onmousemove="winDrag(event)" class="d-none">
+    <!-- move -->
+    <div class="hstack align-items-center">
+      <!-- btn -->
+      <button type="button" class="btn fw-bolder">
+        <span>&#8942;</span>
+      </button>
+
+      <!-- app title -->
+      <h1 class="h3 mb-0 text-nowrap">
+        Py Timer
+      </h1>
+    </div>
+
+
+    <!-- close -->
+    <div class="mt-1 mx-2">
+      <button type="button" 
+        class="btn btn-danger rounded-circle"
+        onclick="winClose()">
+        X
+      </button>
+    </div>
+  </section>
+
+  <br>
+
+  <form 
+    onsubmit="timer().start(event)" 
+    onreset="timer().stop(event)" 
+    class="container mb-3 overflow-auto" 
+    style="max-width: 200px;">
+    <!-- input -->
+    <div id="group-input">
+      <!-- title -->
+      <div class="hstack justify-content-around small bg-body-secondary py-2 rounded-top">
+        <div>Minutes</div>
+        <div>Seconds</div>
+      </div>
+
+      <!-- input -->
+      <div class="input-group">
+        <input id="minutes" name="minutes" type="number" min="0" max="59" value="00" class="text-dark"
+          oninput="
+            audio().playTick(); 
+            time_rng.value=formatter.getSeconds(minutes.valueAsNumber, seconds.valueAsNumber)
+          ">
+
+        <input id="seconds" name="seconds" type="number" min="0" max="59" value="00" class="text-danger"
+          oninput="
+            audio().playTick(); 
+            time_rng.value=formatter.getSeconds(minutes.valueAsNumber, seconds.valueAsNumber)
+          ">
+      </div>
+
+
+      <!-- slider -->
+      <div class="mb-4">
+        <input id="time_rng" name="time_rng" type="range" 
+          oninput="
+            audio().playSetup(); 
+            timer().setMinSec();
+          " class="form-range" min="0"
+          max="3600" value="0">
+      </div>
+
+      <!-- button -->
+      <div>
+        <button type="submit" class="btn-primary">Apply</button>
+      </div>
+    </div>
+
+
+    <!-- stop -->
+    <div id="group-play">
+      <button type="reset" class="btn-danger">Stop</button>
+    </div>
+  </form>
+
+  <!-- scriptss -->
+  <script src="./js/window.js"></script>
+  <script src="./js/audio.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+
+</html>
