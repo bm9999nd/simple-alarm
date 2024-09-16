@@ -27,15 +27,12 @@ function audio() {
     alarmOn = true;
     mediaAlarm.src = "./audio/alarm.mp3";
     mediaAlarm.currentTime = 0;
+    mediaAlarm.loop = true;
     mediaAlarm.play();
-    $(mediaAlarm).on("timeupdate", () => {
-      if (alarmOn && mediaAlarm.ended && !mediaAlarm.paused) {
-        mediaAlarm.play();
-      }
-    });
   }
   function stopAlarm() {
     alarmOn = false;
+    mediaAlarm.loop = false;
     mediaAlarm.pause();
     mediaAlarm.currentTime = 0;
     mediaAlarm.src = "";
